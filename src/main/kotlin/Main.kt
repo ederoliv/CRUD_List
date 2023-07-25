@@ -94,17 +94,12 @@ fun update() {
     print("Digite o Id do usuário que será deletado: ")
     val updateUserId: Int? = readlnOrNull()?.toIntOrNull()
     print("Digite o novo nome do usuário: ")
-    val newUserName = readlnOrNull()
+    val newUserName: String? = readlnOrNull()
     print("Digite o novo sobrenome do usuário: ")
-    val newUserSurname = readlnOrNull()
+    val newUserSurname: String? = readlnOrNull()
 
-    read()
-
-    val oldUSerName = UserTable.userName[updateUserId!!]
-    val oldUserSurname = UserTable.userSurname[updateUserId]
-
-    newUserName!!.also { UserTable.userName[updateUserId] = it }
-    newUserSurname!!.also { UserTable.userSurname[updateUserId] = it }
+    UserTable.userName[updateUserId!!] = newUserName!!
+    UserTable.userSurname[updateUserId] = newUserSurname!!
 
     read()
     readlnOrNull()
