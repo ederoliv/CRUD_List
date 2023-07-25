@@ -44,7 +44,7 @@ fun create(receiveUserName: String, receiveUserSurname: String) {
 
     val newUserId = UserTable.userId.size
 
-    UserTable.userId.add(newUserId) //adiciona mais um id na sequencia do ultimo id da lista
+    UserTable.userId.add(newUserId)
     UserTable.userName.add(newUserId, receiveUserName)
     UserTable.userSurname.add(newUserId, receiveUserSurname)
 
