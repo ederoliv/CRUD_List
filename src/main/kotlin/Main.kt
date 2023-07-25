@@ -8,31 +8,43 @@ object UserTable {
 
 }
 
-fun main(args: Array<String>) {
+fun main() {
 
+    mainMenu()
 
-    when (args[0]) {
+}
 
-        "-c" -> {
+fun mainMenu(){
 
-            create(args[1], args[2])
+    println("1 - Create")
+    println("2 - Read")
+    println("3 - Update")
+    println("4 - Delete")
+    print("Escolha uma opção: ")
+    var input: Int? = readlnOrNull()?.toInt()
+
+    when (input) {
+
+        1 -> {
+
+            create()
 
         }
 
-        "-r" -> {
+        2 -> {
 
             read()
 
         }
-        "-u" -> {
+        3 -> {
 
-            update(args[1].toInt(),args[2],args[3])
+            update()
 
         }
 
-        "-d" -> {
+        4 -> {
 
-            delete(args[1].toInt())
+            delete()
 
         }
 
@@ -40,17 +52,28 @@ fun main(args: Array<String>) {
 
 }
 
-fun create(receiveUserName: String, receiveUserSurname: String) {
+fun create() {
+
+    print("Digite o nome do usuário:")
+    val receiveUserName = readlnOrNull()
+    print("Digite o sobrenome do usuário:")
+    val receiveUserSurname = readlnOrNull()
 
     val newUserId = UserTable.userId.size
 
     UserTable.userId.add(newUserId)
-    UserTable.userName.add(newUserId, receiveUserName)
-    UserTable.userSurname.add(newUserId, receiveUserSurname)
+    if (receiveUserName != null) {
+        UserTable.userName.add(newUserId, receiveUserName)
+    }
+    if (receiveUserSurname != null) {
+        UserTable.userSurname.add(newUserId, receiveUserSurname)
+    }
 
     println("Usuário: ${UserTable.userName[newUserId]} ${UserTable.userSurname[newUserId]}  com o ID: $newUserId foi criado com sucesso!")
 
     read()
+    readlnOrNull()
+    mainMenu()
 
 }
 
@@ -58,38 +81,55 @@ fun create(receiveUserName: String, receiveUserSurname: String) {
 fun read() {
 
     for(id in UserTable.userId){
-        println("${UserTable.userName[id]} ${UserTable.userSurname[id]}")
+        println("| $id | ${UserTable.userName[id]} ${UserTable.userSurname[id]} ")
     }
 
+    readlnOrNull()
+    mainMenu()
+
 }
 
-fun update(updateUserId: Int, newUserName: String, newUserSurname: String) {
+fun update() {
+
+    print("Digite o Id do usuário que será deletado: ")
+    val updateUserId: Int? = readlnOrNull()?.toIntOrNull()
+    print("Digite o novo nome do usuário: ")
+    val newUserName = readlnOrNull()
+    print("Digite o novo sobrenome do usuário: ")
+    val newUserSurname = readlnOrNull()
 
     read()
 
-    val oldUSerName = UserTable.userName[updateUserId]
+    val oldUSerName = UserTable.userName[updateUserId!!]
     val oldUserSurname = UserTable.userSurname[updateUserId]
 
-    UserTable.userName[updateUserId] = newUserName
-    UserTable.userSurname[updateUserId] = newUserSurname
-
-    println("Alterado!")
+    newUserName!!.also { UserTable.userName[updateUserId] = it }
+    newUserSurname!!.also { UserTable.userSurname[updateUserId] = it }
 
     read()
+    readlnOrNull()
+    mainMenu()
 
 }
 
-fun delete(deleteUserId: Int) {
+fun delete() {
 
-    val userDeleted = UserTable.userName[deleteUserId]
-    val userIdDeleted = UserTable.userId[deleteUserId]
+    print("Digite o Id do usuário que será deletado:")
+    val deleteUserId: Int? = readlnOrNull()?.toIntOrNull()
 
-    UserTable.userId.removeAt(deleteUserId)
-    UserTable.userName.removeAt(deleteUserId)
-    UserTable.userSurname.removeAt(deleteUserId)
+    if (deleteUserId != null) {
 
-    println("Usuário: $userDeleted com o ID: $userIdDeleted foi deletado com sucesso")
+        val userDeleted = UserTable.userName[deleteUserId]
+        val userIdDeleted = UserTable.userId[deleteUserId]
 
-    read()
+        UserTable.userId.removeAt(deleteUserId)
+        UserTable.userName.removeAt(deleteUserId)
+        UserTable.userSurname.removeAt(deleteUserId)
 
+        println("Usuário: $userDeleted com o ID: $userIdDeleted foi deletado com sucesso")
+
+        read()
+        readlnOrNull()
+        mainMenu()
+    }
 }
