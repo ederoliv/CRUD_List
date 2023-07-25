@@ -24,6 +24,12 @@ fun main(args: Array<String>) {
             read()
 
         }
+        "-u" -> {
+
+            update(args[1].toInt(),args[2],args[3])
+
+        }
+
         "-d" -> {
 
             delete(args[1].toInt())
@@ -56,11 +62,23 @@ fun read() {
     }
 
 }
-/*
-fun update() {
+
+fun update(updateUserId: Int, newUserName: String, newUserSurname: String) {
+
+    read()
+
+    val oldUSerName = UserTable.userName[updateUserId]
+    val oldUserSurname = UserTable.userSurname[updateUserId]
+
+    UserTable.userName[updateUserId] = newUserName
+    UserTable.userSurname[updateUserId] = newUserSurname
+
+    println("Alterado!")
+
+    read()
 
 }
-*/
+
 fun delete(deleteUserId: Int) {
 
     val userDeleted = UserTable.userName[deleteUserId]
