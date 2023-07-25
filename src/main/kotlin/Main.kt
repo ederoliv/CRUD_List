@@ -13,21 +13,41 @@ fun main(args: Array<String>) {
 
     when (args[0]) {
 
+        "-c" -> {
+
+            create(args[1], args[2])
+
+        }
+
         "-r" -> {
+
             read()
+
         }
         "-d" -> {
+
             delete(args[1].toInt())
+
         }
 
     }
 
 }
-/*
-fun create() {
+
+fun create(receiveUserName: String, receiveUserSurname: String) {
+
+    val newUserId = UserTable.userId.size
+
+    UserTable.userId.add(newUserId) //adiciona mais um id na sequencia do ultimo id da lista
+    UserTable.userName.add(newUserId, receiveUserName)
+    UserTable.userSurname.add(newUserId, receiveUserSurname)
+
+    println("Usuário: ${UserTable.userName[newUserId]} ${UserTable.userSurname[newUserId]}  com o ID: $newUserId foi criado com sucesso!")
+
+    read()
 
 }
-*/
+
 
 fun read() {
 
